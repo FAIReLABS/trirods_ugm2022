@@ -48,6 +48,8 @@ jobs:
         shell: Rscript {0}
         run: |
           if (!requireNamespace("stringr", quietly = TRUE)) install.packages("stringr", repos='https://cran.wu.ac.at')
+          if (!requireNamespace("httr2", quietly = TRUE)) install.packages("httr2", repos='https://cran.wu.ac.at')
+          if (!requireNamespace("httptest2", quietly = TRUE)) install.packages("httptest2", repos='https://cran.wu.ac.at')
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
 
