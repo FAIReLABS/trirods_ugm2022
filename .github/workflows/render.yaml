@@ -47,7 +47,7 @@ jobs:
       - name: Restore packages
         shell: Rscript {0}
         run: |
-          if (!requireNamespace("stringr", quietly = TRUE)) install.packages("stringr")
+          if (!requireNamespace("stringr", quietly = TRUE)) install.packages("stringr", repos='https://cran.wu.ac.at')
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
 
