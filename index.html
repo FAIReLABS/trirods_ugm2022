@@ -3413,21 +3413,18 @@ iget(&quot;foo&quot;)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Implementation</h2></hgroup><article  id="implementation-1">
 
-<pre >## Warning in knitr::write_bib(pkgs, &quot;packages.bib&quot;, prefix = &quot;&quot;): package(s)
-## httr2, httptest2 not found</pre>
-
 <ul>
 <li>Curl in R
 
 <ul>
 <li>R interface to libcurl <em>curl</em> <span class="cite">(Ooms 2022a)</span></li>
-<li>Wrapper <em>httr2</em> <span class="cite">(<strong>httr2?</strong>)</span> for <em>curl</em> and <em>jsonlite</em> <span class="cite">(Ooms 2022b)</span></li>
+<li>Wrapper <em>httr2</em> <span class="cite">(Wickham 2022)</span> for <em>curl</em> and <em>jsonlite</em> <span class="cite">(Ooms 2022b)</span></li>
 </ul></li>
 <li>Testing
 
 <ul>
 <li>irods demo server <code>docker-compose up -d nginx-reverse-proxy</code></li>
-<li>Testing with mocking <em>httptest2</em> <span class="cite">(<strong>httptest2?</strong>)</span></li>
+<li>Testing with mocking <em>httptest2</em> <span class="cite">(Richardson 2022)</span></li>
 <li>Automatic updates of snapshots with GitHub actions</li>
 <li><code>R CMD check</code> without internet (simulate CRAN checks)</li>
 </ul></li>
@@ -3451,10 +3448,16 @@ iget(&quot;foo&quot;)</pre>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-curl" class="csl-entry">
-<p>Ooms, Jeroen. 2022a. <em>Curl: A Modern and Flexible Web Client for r</em>.</p></div>
+<p>Ooms, Jeroen. 2022a. <em>Curl: A Modern and Flexible Web Client for r</em>. <a href='https://CRAN.R-project.org/package=curl' title=''>https://CRAN.R-project.org/package=curl</a>.</p></div>
 
 <div id="ref-jsonlite" class="csl-entry">
-<p>———. 2022b. <em>Jsonlite: A Simple and Robust JSON Parser and Generator for r</em>.</p></div></div></article></slide>
+<p>———. 2022b. <em>Jsonlite: A Simple and Robust JSON Parser and Generator for r</em>. <a href='https://CRAN.R-project.org/package=jsonlite' title=''>https://CRAN.R-project.org/package=jsonlite</a>.</p></div>
+
+<div id="ref-httptest2" class="csl-entry">
+<p>Richardson, Neal. 2022. <em>Httptest2: Test Helpers for Httr2</em>. <a href='https://CRAN.R-project.org/package=httptest2' title=''>https://CRAN.R-project.org/package=httptest2</a>.</p></div>
+
+<div id="ref-httr2" class="csl-entry">
+<p>Wickham, Hadley. 2022. <em>Httr2: Perform HTTP Requests and Process the Responses</em>. <a href='https://CRAN.R-project.org/package=httr2' title=''>https://CRAN.R-project.org/package=httr2</a>.</p></div></div></article></slide>
 
 
   <slide class="backdrop"></slide>
