@@ -46,7 +46,7 @@ n_pkg <- html_text(xc[2]) |>
  
 <div class="centered"> 
 
-```{r kdnuggest, options, echo=FALSE, warning=FALSE, message=FALSE, fig.height=3, fig.width=7}
+```{r kdnuggest, options, echo=FALSE, warning=FALSE, message=FALSE, fig.height=2.7, fig.width=6}
 # https://www.kdnuggets.com/2019/05/poll-top-data-science-machine-learning-platforms.html
 library(ggplot2)
 library(tidyr)
@@ -79,13 +79,19 @@ popR |>
   </font>
 </div>
 
+<div class="notes">
+  - functional programming, or is it? technically not as function don't have to pure and can have side effects
+  - data is based in a poll with 1800 participants which program as Data Science platforms
+</div>
+
 ## Why iRODS?
 
 <!-- the individual -->
 
   - R very powerful for creating reproducible workflows
-    - scripted analysis
-    - markdown ("Rmarkdown" + the new kid "Quarto")
+    - Scripted analysis
+    - Markdown ("Rmarkdown" + the new kid "Quarto")
+    - <https://github.com/FAIReLABS/trirods_ugm2022>
 
 *Never again wonder what method did I use to center variable "foo" in my regression model ... ?*
 
@@ -97,6 +103,7 @@ popR |>
   - relational db
   - reformatting required
   - what about non-relational
+  - can we store R objects just as they are?
 </div>
 
 ## {data-background="figures/ingredients.jpg"}
@@ -142,30 +149,41 @@ Sometimes also reviewer want (or should) check the final to-be published results
 
 ## {data-background=figures/integrated-lab.png}
 
-# Design + implementation
+# Design + Implementation
 
-## Global Design
+## The foundation {.flexbox .vcenter}
 
-- Global design
+  + Old R package build on the iRODS C++ API (archived)
+  + New R package build on the iRODS REST API 
+  + <https://github.com/irods/irods_client_library_rirods>
 
-  + Functional programming
+## Global Design {.flexbox .vcenter}
+
+<div class="columns-2">
+
+  + Functional style (modular build-up)
   + Mimic iCommands
   + Strictly user facing
   + Interactive + batch scripts
-  
-- Implementation  
 
-  + Old R package build on the C++ API (archived)
-  + New R package build on the REST API 
-  + <https://github.com/irods/irods_client_library_rirods>
+![](figures/fp.png){width=80%}
+<div style="text-align:center">
+  <font size="2.5">
+  <a href="https://adv-r.hadley.nz/fp.html">Advanced R </a> by Hadley Wickham
+  </font>
+</div>
+
+</div>
+
+<div class="notes">
+  - functional style -> decompose problems into small chunks with as much as possible pure function
+</div>
 
 ## Design
-
 
   - Authentication
     + connect with iRODS server 
     + authenticate
-  
   
 </br>
 </br>
@@ -181,10 +199,10 @@ iauth()
   - Configured for users only
   - Mapping of function to REST endpoints
   - native iRODS authentication (time based invalidation) = authenticate for every R session (restart)
-  - No hardcoding need for secrets
-  - configuration file to be create at the user or project level
+  - No hardcoding needed for secrets
+  - Configuration file to be create at the user or project level
   - Token in secret level
-  - auth for every R session
+  - Auth. for every R session
 </div>
 
 ## Design
@@ -224,7 +242,6 @@ iget(foo) # ?
   
 <div class="notes">
   - use strings and expression to make iRODS an extension of the R environment
-  
 </div>
 
 ## Design
@@ -263,11 +280,15 @@ knitr::write_bib(pkgs, "packages.bib", prefix = "")
   + R interface to libcurl *curl* [@curl]
   + Wrapper *httr2* [@httr2] for *curl* and *jsonlite* [@jsonlite]
 
-- Testing
+- Development + Testing
   + irods demo server `docker-compose up -d nginx-reverse-proxy`
   + Testing with mocking *httptest2*  [@httptest2]
   + Automatic updates of snapshots with GitHub actions
   + `R CMD check` without internet (simulate CRAN checks)
+
+<div class="notes">
+  - functional style -> decompose problems into small chunks with as much as possible pure function
+</div>
 
 # Future plans
 
