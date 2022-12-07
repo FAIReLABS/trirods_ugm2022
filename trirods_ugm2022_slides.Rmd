@@ -1,6 +1,6 @@
 ---
 title: "rirods: A first release of a pure R package for iRODS"
-subtitle: "Combing reprodicible workflows and data management"
+subtitle: "Combining reproducible workflows and data management"
 author: | 
   |Martin Schobben
   |Vienna, Austria
