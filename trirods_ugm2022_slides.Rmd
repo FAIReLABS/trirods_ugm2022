@@ -20,6 +20,12 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # iRODS + R
 
+<div style="text-align:right">
+ <font size="2.5">
+    Background photo by <a href="https://unsplash.com/@alexkondratiev?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alex Kondratiev</a> on <a href="https://unsplash.com/s/photos/lab?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+ </font>
+</div>
+
 ## Introduction to R
 
 ```{r users, echo=FALSE, message=FALSE}
@@ -87,6 +93,27 @@ popR |>
     - SQLite, MySQL, PostgreSQL, MonetDB with `DBI` package and ODBC drivers
     - iRODS?
 
+<div class="notes">
+  - relational db
+  - reformatting required
+  - what about non-relational
+</div>
+
+## {data-background="figures/ingredients.jpg"}
+
+<div style="text-align:right">
+ <font size="2.5">
+    Photo by <a href="https://unsplash.com/photos/Px2K8O8dwa4?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink"> Tamanna Rumee </a> on <a href="https://unsplash.com/photos/Px2K8O8dwa4?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink">Unsplash</a>
+ </font>
+</div>
+
+<div class="notes">
+  - instructions
+  - what are the ingredients
+  - how much
+  - ..
+</div>
+
 ## Opening-up the black box with iRODS + R
 
 <!-- in a larger scope -->
@@ -95,23 +122,6 @@ popR |>
   - Share data and scripts with collaborators
   - Reviewer trace back the origin of data and imposed manipulations
   - Publish everything = open science
-
-
-<div class="centered">
-  ![](figures/validating_results_paper.png){width=90%}
-</div>
-
-<div class="notes">
-  add 1: Why rely solely on the manufacturers data handling and quality checks. Of course this does not mean that we should now all distrust the manufacturers but it would sometime be good to let a fresh mind have a look at how data is handled.
-  add 2: Sometimes also reviewer want (or should) check the final to-be published results, and then we need easy access to the original data
-</div>
-
-
-## Is more data better?
-
-- New innovations
-- Inclusive science
-- More transparent science (proof of final published values)
 
 
 <div class="centered">
@@ -125,15 +135,29 @@ popR |>
 </div>
 
 
-<div class="notes">
-  The "vendor lock-in" results in situations where we don't actually know how we get to the values that we use in our research.
-  
+<div class="notes">\
+Sometimes also reviewer want (or should) check the final to-be published results, and then we need easy access to the original data
 </div>
 
 
 ## {data-background=figures/integrated-lab.png}
 
-# Design
+# Design + implementation
+
+## Global Design
+
+- Global design
+
+  + Functional programming
+  + Mimic iCommands
+  + Strictly user facing
+  + Interactive + batch scripts
+  
+- Implementation  
+
+  + Old R package build on the C++ API (archived)
+  + New R package build on the REST API 
+  + <https://github.com/irods/irods_client_library_rirods>
 
 ## Design
 
@@ -153,6 +177,16 @@ create_irods("<host>", "<zone>")
 iauth()
 ```
 
+<div class="notes">
+  - Configured for users only
+  - Mapping of function to REST endpoints
+  - native iRODS authentication (time based invalidation) = authenticate for every R session (restart)
+  - No hardcoding need for secrets
+  - configuration file to be create at the user or project level
+  - Token in secret level
+  - auth for every R session
+</div>
+
 ## Design
 
   - Navigation
@@ -165,7 +199,7 @@ iauth()
 # current working collection
 ipwd()
 # change working collection
-icd()
+icd("<path>")
 # list
 ils()
 ```
@@ -183,21 +217,40 @@ foo <- 1:10
 # configuration file
 iput(foo)
 # authenticate
-iget("foo")
+iget("foo") 
+# or 
+iget(foo) # ?
 ```
   
 <div class="notes">
-  - Configured for users only
-  - Mapping of function to REST endpoints
-  - native iRODS authentication (time based invalidation) = authenticate for every R session (restart)
-  - No hardcoding need for secrets
-  - configuration file to be create at the user or project level
-  -   
+  - use strings and expression to make iRODS an extension of the R environment
   
 </div>
 
+## Design
 
-# Implementation
+  - Data discovery
+    + imeta vs iquest
+
+</br>
+</br>
+
+```{r, eval = FALSE, echo=TRUE}
+# add some metadata
+imeta(
+  "foo", 
+  "data_object", 
+  operations = 
+    list(operation = "add", attribute = "foo", value = "bar", units = "baz")
+)
+# discover 
+iquery("SELECT COLL_NAME, DATA_NAME WHERE COLL_NAME LIKE '/tempZone/home/%'")
+```
+  
+<div class="notes">
+  - use strings and expression to make iRODS an extension of the R environment
+  
+</div>
 
 ## Implementation
 
@@ -216,17 +269,30 @@ knitr::write_bib(pkgs, "packages.bib", prefix = "")
   + Automatic updates of snapshots with GitHub actions
   + `R CMD check` without internet (simulate CRAN checks)
 
+# Future plans
+
+## Contribute
+
+<iframe src="https://irods.github.io/irods_client_library_rirods/articles/develop.html" scrolling="yes"></iframe>
+
 ## Roadmap
 
-- submission to CRAN
-- official release at UGM
-- datamanager + panacaea packages
+- Submission to CRAN
+- Official release at UGM (summer 2023)
+- More R packages: datamanager + panacaea 
+
+</br>
+
+<div class="centered">
+  ![](templates/logo/iRODS-Logo.png){width=40%}
+</div>
 
 ## FAIReLABS
 
 **Help us!**
 https://fairelabs.github.io/webpage/
 
+
 <iframe src="https://fairelabs.github.io/webpage/" scrolling="yes"></iframe>
 
-
+## References
