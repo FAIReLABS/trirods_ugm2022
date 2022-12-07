@@ -41,7 +41,7 @@ n_pkg <- html_text(xc[2]) |>
 
  - Declarative programming centered around functions and logic (OOP capable)
  - Emphasis on statistics and visualization of data
- - Used by researchers and business
+ - Used by researchers and industry
  - Open sourced, active useRs community (`r sprintf("%1.0f", n_pkg) ` packages)
  
 <div class="centered"> 
@@ -80,8 +80,8 @@ popR |>
 </div>
 
 <div class="notes">
-  - functional programming, or is it? technically not as function don't have to pure and can have side effects
-  - data is based in a poll with 1800 participants which program as Data Science platforms
+  - Functional programming, or is it? technically not as function don't have to pure and can have side effects
+  - Data is based on a poll with 1800 participants -> which program do they use as Data Science platforms
 </div>
 
 ## Why iRODS?
@@ -100,10 +100,10 @@ popR |>
     - iRODS?
 
 <div class="notes">
-  - relational db
-  - reformatting required
-  - what about non-relational
-  - can we store R objects just as they are?
+  - Relational db
+  - Reformatting required
+  - What about non-relational
+  - Can we store R objects just as they are?
 </div>
 
 ## {data-background="figures/ingredients.jpg"}
@@ -141,13 +141,19 @@ popR |>
   </font>
 </div>
 
-
-<div class="notes">\
-Sometimes also reviewer want (or should) check the final to-be published results, and then we need easy access to the original data
+<div class="notes">
+ - The full data cycle
+ - Sometimes also reviewer want (or should) check the final to-be published results, and then we need easy access to the original data
 </div>
 
 
 ## {data-background=figures/integrated-lab.png}
+
+<div class="notes">
+ - Not directly related, but from my experience.
+ - This solution introduced to a lab -> would be able to capture data
+ - Link for processing + also monitoring (shiny dashboard) of this lab data
+</div>
 
 # Design + Implementation
 
@@ -156,6 +162,11 @@ Sometimes also reviewer want (or should) check the final to-be published results
   + Old R package build on the iRODS C++ API (archived)
   + New R package build on the iRODS REST API 
   + <https://github.com/irods/irods_client_library_rirods>
+
+<div class="notes">
+ - Now we can go truly distributed!
+</div>
+
 
 ## Global Design {.flexbox .vcenter}
 
